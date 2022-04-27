@@ -98,7 +98,7 @@
         app:layout_constraintTop_toBottomOf="@id/bottomBarrier"
         android:layout_marginStart="@dimen/common_spacing"
         android:layout_marginTop="@dimen/common_spacing"
-        tools:text="10" />
+        tools:text="100" />
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/shareImage"
@@ -134,20 +134,15 @@
         android:src="@drawable/ic_views_eye_24dp"/>
 
     <androidx.appcompat.widget.AppCompatTextView
+        android:text="500"
         android:id="@+id/viewsAmount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/common_spacing"
+        android:layout_marginEnd="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/bottomBarrier"
-        android:layout_marginTop="@dimen/common_spacing"
-        tools:text="5" />
-
-
-
-
-
-
-
+        tools:text="500" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
