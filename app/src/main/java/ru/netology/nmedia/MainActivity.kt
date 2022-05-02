@@ -6,10 +6,6 @@ import ru.netology.nmedia.databinding.PostBinding
 import kotlin.math.floor
 
 class MainActivity : AppCompatActivity(R.layout.post) {
-    var likesCount = 999
-    var shareCount = 9998
-    var viewCount = 500
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,9 +22,9 @@ class MainActivity : AppCompatActivity(R.layout.post) {
         )
 
         with(binding) {
-            likesAmount.text = countView(likesCount)
-            sharesAmount.text = countView(shareCount)
-            viewsAmount.text = countView(viewCount)
+            likesAmount.text = countView(post.counterLike)
+            sharesAmount.text = countView(post.counterShare)
+            viewsAmount.text = countView(post.counterView)
             
             usersName.text = post.author
             date.text = post.published
@@ -44,17 +40,14 @@ class MainActivity : AppCompatActivity(R.layout.post) {
                     if (post.likedByMe) R.drawable.ic_liked_24dp else R.drawable.ic_likes_24dp
                 )
 
-                if (post.likedByMe) {
-                    likesCount++
-                } else {
-                    likesCount--
-                }
-                likesAmount.text = countView(likesCount)
+                if (post.likedByMe) post.counterLike++ else post.counterLike--
+
+                likesAmount.text = countView(post.counterLike)
             }
 
             shareImage.setOnClickListener {
-                shareCount++
-                sharesAmount.text = countView(shareCount)
+                post.counterShare++
+                sharesAmount.text = countView(post.counterShare)
             }
 
         }
