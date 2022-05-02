@@ -8,10 +8,6 @@ import ru.netology.nmedia.countView
 
 class PostRepositoryInMemoryImpl() : PostRepository {
 
-    override var likesCount = 999999
-    override var shareCount = 0
-    override var viewCount = 500
-
     private var post = Post(
         id = 1L,
         author = "Нетология. Университет интернет-профессий будущего",
@@ -24,19 +20,13 @@ class PostRepositoryInMemoryImpl() : PostRepository {
     override fun get(): LiveData<Post> = data
 
     override fun like() {
+        if (!post.likedByMe) post.counterLike++ else post.counterLike--
         post = post.copy(likedByMe = !post.likedByMe)
         data.value = post
-
-        if (post.likedByMe) {
-            likesCount++
-        } else {
-            likesCount--
-        }
-
     }
 
     override fun share() {
-        shareCount++
+        post.counterShare++
     }
 
 }

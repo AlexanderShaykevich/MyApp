@@ -21,9 +21,9 @@ class MainActivity : AppCompatActivity(R.layout.post) {
 
         viewModel.data.observe(this) { post ->
             with(binding) {
-                likesAmount.text = countView(viewModel.getCountLikes())
-                sharesAmount.text = countView(viewModel.getCountShares())
-                viewsAmount.text = countView(viewModel.getCountViews())
+                likesAmount.text = countView(post.counterLike)
+                sharesAmount.text = countView(post.counterShare)
+                viewsAmount.text = countView(post.counterView)
 
                 usersName.text = post.author
                 date.text = post.published
@@ -35,12 +35,12 @@ class MainActivity : AppCompatActivity(R.layout.post) {
 
                 shareImage.setOnClickListener {
                     viewModel.share()
-                    sharesAmount.text = countView(viewModel.getCountShares())
+                    sharesAmount.text = countView(post.counterShare)
                 }
 
                 likesImage.setOnClickListener {
                     viewModel.like()
-                    likesAmount.text = countView(viewModel.getCountLikes())
+                    likesAmount.text = countView(post.counterLike)
                 }
 
 
