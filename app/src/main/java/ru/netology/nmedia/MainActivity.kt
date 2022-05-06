@@ -35,12 +35,10 @@ class MainActivity : AppCompatActivity(R.layout.post) {
 
                 shareImage.setOnClickListener {
                     viewModel.share()
-                    sharesAmount.text = countView(post.counterShare)
                 }
 
                 likesImage.setOnClickListener {
                     viewModel.like()
-                    likesAmount.text = countView(post.counterLike)
                 }
 
 
