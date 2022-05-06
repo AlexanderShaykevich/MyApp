@@ -3,10 +3,8 @@ package ru.netology.nmedia.data
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import ru.netology.nmedia.Post
-import ru.netology.nmedia.countView
 
-
-class PostRepositoryInMemoryImpl() : PostRepository {
+class PostRepositoryInMemoryImpl : PostRepository {
 
     private var post = Post(
         id = 1L,
@@ -20,13 +18,18 @@ class PostRepositoryInMemoryImpl() : PostRepository {
     override fun get(): LiveData<Post> = data
 
     override fun like() {
-        if (!post.likedByMe) post.counterLike++ else post.counterLike--
-        post = post.copy(likedByMe = !post.likedByMe)
+      post = if (!post.likedByMe) {
+            post.copy(counterLike = post.counterLike + 1, likedByMe = !post.likedByMe)
+        } else {
+            post.copy(counterLike = post.counterLike - 1, likedByMe = !post.likedByMe)
+        }
         data.value = post
     }
 
     override fun share() {
-        post.counterShare++
+        post = post.copy(counterShare = post.counterShare + 1)
+        data.value = post
+
     }
 
 }
