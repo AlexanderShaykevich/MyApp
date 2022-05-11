@@ -2,10 +2,16 @@ package ru.netology.nmedia
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.activity.viewModels
+import androidx.lifecycle.ViewModelProvider
+import ru.netology.nmedia.data.PostRepositoryInMemoryImpl
+import ru.netology.nmedia.data.PostViewModel
 import ru.netology.nmedia.databinding.PostBinding
 import kotlin.math.floor
 
 class MainActivity : AppCompatActivity(R.layout.post) {
+
+    private val viewModel by viewModels<PostViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -13,50 +19,41 @@ class MainActivity : AppCompatActivity(R.layout.post) {
         val binding = PostBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        viewModel.data.observe(this) { post ->
+            with(binding) {
+                likesAmount.text = countView(post.counterLike)
+                sharesAmount.text = countView(post.counterShare)
+                viewsAmount.text = countView(post.counterView)
 
-        val post = Post(
-            id = 1L,
-            author = "Нетология. Университет интернет-профессий",
-            content = "Привет! Это новая Нетология!",
-            published = "26.04.2022"
-        )
+                usersName.text = post.author
+                date.text = post.published
+                mainText.text = post.content
 
-        with(binding) {
-            likesAmount.text = countView(post.counterLike)
-            sharesAmount.text = countView(post.counterShare)
-            viewsAmount.text = countView(post.counterView)
-            
-            usersName.text = post.author
-            date.text = post.published
-            mainText.text = post.content
-
-            if (post.likedByMe) {
-                likesImage.setImageResource(R.drawable.ic_liked_24dp)
-        }
-
-            likesImage.setOnClickListener {
-                post.likedByMe = !post.likedByMe
                 likesImage.setImageResource(
                     if (post.likedByMe) R.drawable.ic_liked_24dp else R.drawable.ic_likes_24dp
                 )
 
-                if (post.likedByMe) post.counterLike++ else post.counterLike--
+                shareImage.setOnClickListener {
+                    viewModel.share()
+                }
 
-                likesAmount.text = countView(post.counterLike)
+                likesImage.setOnClickListener {
+                    viewModel.like()
+                }
+
+
+
             }
-
-            shareImage.setOnClickListener {
-                post.counterShare++
-                sharesAmount.text = countView(post.counterShare)
-            }
-
         }
+
 
     }
 
-
-
 }
+
+
+
+
 
 
 
