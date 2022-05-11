@@ -9,6 +9,7 @@ data class Post (
     val counterShare:Int = 0,
     val counterView:Int = 1200,
     val likedByMe: Boolean = false,
+
         ) {
 
 }
