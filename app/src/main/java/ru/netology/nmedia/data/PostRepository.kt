@@ -5,6 +5,6 @@ import ru.netology.nmedia.Post
 
 interface PostRepository {
     fun get(): LiveData<List<Post>>
-    fun like(postId: Long)
-    fun share(postId: Long)
+    fun like(id: Long)
+    fun share(id: Long)
 }

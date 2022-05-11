@@ -12,11 +12,9 @@ import ru.netology.nmedia.databinding.PostBinding
 import kotlin.math.floor
 
 class MainActivity : AppCompatActivity(R.layout.post) {
-
-
+    
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -30,7 +28,7 @@ class MainActivity : AppCompatActivity(R.layout.post) {
 
 
         viewModel.data.observe(this) { posts ->
-            adapter.list = posts
+            adapter.submitList(posts)
             }
 
 
