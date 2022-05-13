@@ -6,30 +6,41 @@ import ru.netology.nmedia.Post
 
 class PostRepositoryInMemoryImpl : PostRepository {
 
-    private var post = Post(
-        id = 1L,
-        author = "Нетология. Университет интернет-профессий будущего",
-        content = "Привет! Это новая Нетология!",
-        published = "26 апреля 2022"
-    )
-
-    private val data = MutableLiveData(post)
-
-    override fun get(): LiveData<Post> = data
-
-    override fun like() {
-      post = if (!post.likedByMe) {
-            post.copy(counterLike = post.counterLike + 1, likedByMe = !post.likedByMe)
-        } else {
-            post.copy(counterLike = post.counterLike - 1, likedByMe = !post.likedByMe)
+    private var posts =
+        List(10) { index ->
+            Post(
+                id = index + 1L,
+                author = "Нетология. Университет интернет-профессий будущего",
+                content = "Привет! Это новая Нетология! Попытка номер $index",
+                published = "26 апреля 2022"
+            )
         }
-        data.value = post
+
+    private val data = MutableLiveData(posts)
+
+    override fun get(): LiveData<List<Post>> = data
+
+    override fun like(id: Long) {
+
+            posts = posts.map {
+                if (it.id != id) {
+                    it
+                } else if (it.id == id && !it.likedByMe) {
+                    it.copy(counterLike = it.counterLike +1, likedByMe = !it.likedByMe)
+                } else {
+                    it.copy(counterLike = it.counterLike -1, likedByMe = !it.likedByMe)
+                }
+            }
+        data.value = posts
     }
 
-    override fun share() {
-        post = post.copy(counterShare = post.counterShare + 1)
-        data.value = post
+    override fun share(id: Long) {
+        posts = posts.map {
+            if (it.id != id) it else it.copy(counterShare = it.counterShare +1)
+        }
+        data.value = posts
 
     }
+
 
 }
