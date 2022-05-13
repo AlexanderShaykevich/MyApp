@@ -8,7 +8,7 @@ data class Post (
     val counterLike:Int = 999,
     val counterShare:Int = 0,
     val counterView:Int = 1200,
-    var likedByMe: Boolean = false,
+    val likedByMe: Boolean = false,
         ) {
 
 }

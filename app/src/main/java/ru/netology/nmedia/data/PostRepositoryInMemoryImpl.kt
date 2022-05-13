@@ -4,8 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import ru.netology.nmedia.Post
 
-
-class PostRepositoryInMemoryImpl() : PostRepository {
+class PostRepositoryInMemoryImpl : PostRepository {
 
     private var posts =
         List(10) { index ->
@@ -40,6 +39,7 @@ class PostRepositoryInMemoryImpl() : PostRepository {
             if (it.id != id) it else it.copy(counterShare = it.counterShare +1)
         }
         data.value = posts
+
     }
 
 
