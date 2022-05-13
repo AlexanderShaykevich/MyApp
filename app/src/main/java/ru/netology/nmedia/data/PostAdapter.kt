@@ -10,7 +10,7 @@ import ru.netology.nmedia.R
 import ru.netology.nmedia.countView
 import ru.netology.nmedia.databinding.PostBinding
 
-typealias OnLikeShareListener = (post: Post) -> Unit
+typealias OnLikeShareListener = (Post) -> Unit
 
 class PostAdapter(
     private val onLikeListener: OnLikeShareListener,

@@ -19,22 +19,19 @@ class MainActivity : AppCompatActivity(R.layout.post) {
         setContentView(binding.root)
 
         val viewModel by viewModels<PostViewModel>()
-        val adapter = PostAdapter {
-            viewModel.like(it.id)
-            viewModel.share(it.id)
-        }
+        val adapter = PostAdapter (viewModel::like, viewModel::share)
+
+
         binding.list.adapter = adapter
-
-
 
         viewModel.data.observe(this) { posts ->
             adapter.submitList(posts)
             }
 
-
         }
 
-    }
+
+}
 
 
 
