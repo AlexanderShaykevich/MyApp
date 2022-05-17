@@ -6,5 +6,9 @@
     <string name="options_button">Кнопка опций</string>
     <string name="likes_sign">Значок лайков</string>
     <string name="share_sign">Значок поделиться</string>
-    <string name="views_sign">Views sign</string>
+    <string name="views_sign">Значок просмотров</string>
+    <string name="delete">Удалить</string>
+    <string name="edit">Редактировать</string>
+    <string name="write_your_text_here">Текст</string>
+    <string name="SaveButton">Кнопка сохранения и отправки текста</string>
 </resources>
