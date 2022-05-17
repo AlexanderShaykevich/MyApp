@@ -2,6 +2,7 @@ package ru.netology.nmedia.data
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.PopupMenu
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -10,17 +11,13 @@ import ru.netology.nmedia.R
 import ru.netology.nmedia.countView
 import ru.netology.nmedia.databinding.PostBinding
 
-typealias OnLikeShareListener = (Post) -> Unit
-
 class PostAdapter(
-    private val onLikeListener: OnLikeShareListener,
-    private val onShareListener: OnLikeShareListener,
+    private val interactionListener: PostInteractionListener
 ) : ListAdapter<Post, ViewHolder>(PostDiffCallback()) {
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = PostBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return ViewHolder(binding, onLikeListener, onShareListener)
+        return ViewHolder(binding, interactionListener)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -32,8 +29,7 @@ class PostAdapter(
 
 class ViewHolder(
     private val binding: PostBinding,
-    private val onLikeListener: OnLikeShareListener,
-    private val onShareListener: OnLikeShareListener,
+    private val listener: PostInteractionListener
 ) : RecyclerView.ViewHolder(binding.root) {
 
     fun bind(post: Post) {
@@ -51,25 +47,43 @@ class ViewHolder(
             )
 
             shareImage.setOnClickListener {
-                onShareListener(post)
+                listener.onShareListener(post)
             }
 
             likesImage.setOnClickListener {
-                onLikeListener(post)
+                listener.onLikeListener(post)
             }
-        }
 
+            optionsButton.setOnClickListener {
+                PopupMenu(it.context, it).apply {
+                    inflate(R.menu.post_menu)
+                    setOnMenuItemClickListener { item ->
+                        when (item.itemId) {
+                            R.id.delete -> {
+                                listener.onDeleteListener(post)
+                                true
+                            }
+                            R.id.edit -> {
+                                listener.onEditListener(post)
+                                true
+                            }
+                            else -> false
+                        }
+                    }
+                }.show()
+            }
+
+        }
+    }
+}
+
+class PostDiffCallback : DiffUtil.ItemCallback<Post>() {
+    override fun areItemsTheSame(oldItem: Post, newItem: Post): Boolean {
+        return oldItem.id == newItem.id
+    }
+
+    override fun areContentsTheSame(oldItem: Post, newItem: Post): Boolean {
+        return oldItem == newItem
     }
 
 }
-
-    class PostDiffCallback : DiffUtil.ItemCallback<Post>() {
-        override fun areItemsTheSame(oldItem: Post, newItem: Post): Boolean {
-            return oldItem.id == newItem.id
-        }
-
-        override fun areContentsTheSame(oldItem: Post, newItem: Post): Boolean {
-            return oldItem == newItem
-        }
-
-    }
