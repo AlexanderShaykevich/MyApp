@@ -9,7 +9,7 @@ class PostRepositoryInMemoryImpl : PostRepository {
     private var nextId = GENERATED_POST_AMOUNT.toLong()
 
     private var posts =
-        List(10) { index ->
+        List(GENERATED_POST_AMOUNT) { index ->
             Post(
                 id = index + 1L,
                 author = "Нетология. Университет интернет-профессий будущего",

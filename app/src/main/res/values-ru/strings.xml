@@ -11,4 +11,9 @@
     <string name="edit">Редактировать</string>
     <string name="write_your_text_here">Текст</string>
     <string name="SaveButton">Кнопка сохранения и отправки текста</string>
+    <string name="EditImage">Значок редактирования сообщения</string>
+    <string name="EditTextTop">Обозначение режима редактирования</string>
+    <string name="EditTextBottom">Редактируемый текст</string>
+    <string name="CancelEditButton">Кнопка отмены редактирования</string>
+    <string name="edit_text">Редактирование</string>
 </resources>
