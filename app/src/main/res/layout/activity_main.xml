@@ -11,50 +11,126 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintBottom_toTopOf="@id/topBarrier"
+        app:layout_constraintBottom_toTopOf="@id/bottomEditBarrier"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
-        tools:layout_editor_absoluteX="-16dp"
-        tools:listitem="@layout/post" />
+        app:layout_constraintVertical_bias="0.0"
+        tools:layout_editor_absoluteX="0dp">
+
+    </androidx.recyclerview.widget.RecyclerView>
 
     <androidx.constraintlayout.widget.Barrier
-        android:id="@+id/topBarrier"
+        android:id="@+id/bottomTextBarrier"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:barrierDirection="top" />
 
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/textWindow"
-        android:padding="8dp"
-        android:paddingStart="16dp"
-        android:importantForAutofill="no"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:inputType="textMultiLine"
-        android:background="@android:color/transparent"
+        android:background="@android:color/white"
         android:hint="@string/write_your_text_here"
-        app:layout_constraintTop_toTopOf="@id/topBarrier"
+        android:importantForAutofill="no"
+        android:inputType="textMultiLine"
+        android:padding="8dp"
+        android:paddingStart="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/saveButton"
         app:layout_constraintStart_toStartOf="parent"
-        />
+        app:layout_constraintTop_toBottomOf="@id/bottomTextBarrier" />
 
-    <ImageButton
+    <androidx.appcompat.widget.AppCompatImageButton
         android:id="@+id/saveButton"
-        android:contentDescription="@string/SaveButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:contentDescription="@string/SaveButton"
+        android:paddingEnd="@dimen/common_spacing"
+        android:paddingStart="8dp"
+        android:paddingBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/textWindow"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:srcCompat="@drawable/save_button_48dp"
-        android:background="@android:color/transparent"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="8dp"
 
         />
 
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/editGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:constraint_referenced_ids="editImageLeft, editCancelButton, editTextTop, editTextBottom"
+        tools:visibility="visible">
+
+    </androidx.constraintlayout.widget.Group>
+
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/bottomEditBarrier"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:barrierDirection="top" />
+
+
+    <ImageView
+        android:id="@+id/editImageLeft"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:contentDescription="@string/EditImage"
+        android:paddingStart="@dimen/common_spacing"
+        android:paddingEnd="8dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toTopOf="@id/bottomTextBarrier"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/bottomEditBarrier"
+        app:srcCompat="@drawable/ic_edit_create_48" />
+
+    <TextView
+        android:id="@+id/editTextTop"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:contentDescription="@string/EditTextTop"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        android:text="@string/edit_text"
+        android:textColor="#0982cf"
+        app:layout_constraintEnd_toStartOf="@+id/editCancelButton"
+        app:layout_constraintStart_toEndOf="@id/editImageLeft"
+        app:layout_constraintBottom_toTopOf="@id/editTextBottom"
+        app:layout_constraintTop_toTopOf="@id/editImageLeft" />
+
+    <TextView
+        android:id="@+id/editTextBottom"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:contentDescription="@string/EditTextBottom"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        android:ellipsize="end"
+        android:singleLine="true"
+        app:layout_constraintTop_toBottomOf="@id/editTextTop"
+        app:layout_constraintEnd_toStartOf="@+id/editCancelButton"
+        app:layout_constraintStart_toEndOf="@id/editImageLeft"
+        tools:text="Message here"/>
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/editCancelButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:contentDescription="@string/CancelEditButton"
+        android:paddingEnd="@dimen/common_spacing"
+        android:paddingStart="0dp"
+        android:paddingTop="8dp"
+        app:layout_constraintBottom_toBottomOf="@id/bottomTextBarrier"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/bottomEditBarrier"
+        app:srcCompat="@drawable/ic_edit_close_48" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

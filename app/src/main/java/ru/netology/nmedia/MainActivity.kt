@@ -2,16 +2,14 @@ package ru.netology.nmedia
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
-import androidx.lifecycle.ViewModelProvider
 import ru.netology.nmedia.data.PostAdapter
-import ru.netology.nmedia.data.PostRepositoryInMemoryImpl
 import ru.netology.nmedia.data.PostViewModel
 import ru.netology.nmedia.databinding.ActivityMainBinding
-import ru.netology.nmedia.databinding.PostBinding
+
 import ru.netology.nmedia.util.hideKeyboard
-import kotlin.math.floor
 
 class MainActivity : AppCompatActivity(R.layout.post) {
 
@@ -42,15 +40,26 @@ class MainActivity : AppCompatActivity(R.layout.post) {
                 viewModel.onSaveButtonListener(content)
                 clearFocus()
                 hideKeyboard()
+                binding.editGroup.visibility = View.GONE
             }
+        }
+
+        binding.editCancelButton.setOnClickListener {
+            viewModel.currentPost.value = null
+            binding.editGroup.visibility = View.GONE
         }
 
         viewModel.currentPost.observe(this) { currentPost ->
             with(binding.textWindow) {
                 val content = currentPost?.content
-                setText(currentPost?.content)
-                if (content != null) requestFocus()
+                setText(content)
+                if (content != null) {
+                    requestFocus()
+                    binding.editGroup.visibility = View.VISIBLE
+                    binding.editTextBottom.text = content
+                }
             }
+
         }
 
     }

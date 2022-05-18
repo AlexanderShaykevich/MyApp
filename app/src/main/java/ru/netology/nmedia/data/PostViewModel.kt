@@ -17,7 +17,7 @@ class PostViewModel : ViewModel(), PostInteractionListener {
             id = PostRepository.NEW_POST_ID,
             author = "Alexander",
             content = content,
-            published = "Today"
+            published = "18 мая 2022"
         )
         repository.save(post)
         currentPost.value = null
