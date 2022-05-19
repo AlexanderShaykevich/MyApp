@@ -11,10 +11,11 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintBottom_toTopOf="@id/bottomEditBarrier"
+        app:layout_constraintBottom_toBottomOf="@id/bottomEditBarrier"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
-        tools:layout_editor_absoluteX="0dp">
+        tools:layout_editor_absoluteX="0dp"
+        tools:listitem="@layout/post">
 
     </androidx.recyclerview.widget.RecyclerView>
 
@@ -22,13 +23,14 @@
         android:id="@+id/bottomTextBarrier"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:barrierDirection="top" />
+        app:barrierDirection="top"
+        />
 
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/textWindow"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@android:color/white"
+        android:background="@android:color/transparent"
         android:hint="@string/write_your_text_here"
         android:importantForAutofill="no"
         android:inputType="textMultiLine"
@@ -37,13 +39,14 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/saveButton"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/bottomTextBarrier" />
+        app:layout_constraintTop_toBottomOf="@id/bottomTextBarrier"
+        app:layout_constraintVertical_bias="1.0" />
 
     <androidx.appcompat.widget.AppCompatImageButton
         android:id="@+id/saveButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@android:color/white"
+        android:background="@android:color/transparent"
         android:contentDescription="@string/SaveButton"
         android:paddingEnd="@dimen/common_spacing"
         android:paddingStart="8dp"
@@ -66,33 +69,42 @@
     </androidx.constraintlayout.widget.Group>
 
     <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/bottomEditBarrier2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:barrierDirection="top"
+        app:layout_constraintBottom_toTopOf="@id/textWindow"
+        />
+
+    <androidx.constraintlayout.widget.Barrier
         android:id="@+id/bottomEditBarrier"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:barrierDirection="top" />
+        app:barrierDirection="top"
+        />
 
 
     <ImageView
         android:id="@+id/editImageLeft"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@android:color/white"
+        android:background="@android:color/transparent"
         android:contentDescription="@string/EditImage"
         android:paddingStart="@dimen/common_spacing"
-        android:paddingEnd="8dp"
         android:paddingTop="8dp"
+        android:paddingEnd="8dp"
         android:paddingBottom="8dp"
-        android:layout_marginTop="8dp"
         app:layout_constraintBottom_toTopOf="@id/bottomTextBarrier"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/bottomEditBarrier"
+        app:layout_constraintVertical_bias="1.0"
         app:srcCompat="@drawable/ic_edit_create_48" />
 
     <TextView
         android:id="@+id/editTextTop"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@android:color/white"
+        android:background="@android:color/transparent"
         android:contentDescription="@string/EditTextTop"
         android:paddingStart="8dp"
         android:paddingEnd="8dp"
@@ -107,13 +119,14 @@
         android:id="@+id/editTextBottom"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@android:color/white"
+        android:background="@android:color/transparent"
         android:contentDescription="@string/EditTextBottom"
         android:paddingStart="8dp"
         android:paddingEnd="8dp"
         android:ellipsize="end"
         android:singleLine="true"
         app:layout_constraintTop_toBottomOf="@id/editTextTop"
+        app:layout_constraintBottom_toTopOf="@id/bottomTextBarrier"
         app:layout_constraintEnd_toStartOf="@+id/editCancelButton"
         app:layout_constraintStart_toEndOf="@id/editImageLeft"
         tools:text="Message here"/>
@@ -122,12 +135,13 @@
         android:id="@+id/editCancelButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@android:color/white"
+        android:background="@android:color/transparent"
         android:contentDescription="@string/CancelEditButton"
         android:paddingEnd="@dimen/common_spacing"
-        android:paddingStart="0dp"
+        android:paddingStart="8dp"
         android:paddingTop="8dp"
-        app:layout_constraintBottom_toBottomOf="@id/bottomTextBarrier"
+        android:paddingBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@id/bottomTextBarrier"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/bottomEditBarrier"
         app:srcCompat="@drawable/ic_edit_close_48" />
