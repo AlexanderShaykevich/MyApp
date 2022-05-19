@@ -6,4 +6,13 @@
     <string name="likes_sign">Likes amount</string>
     <string name="share_sign">Share sign</string>
     <string name="views_sign">Views sign</string>
+    <string name="delete">Delete</string>
+    <string name="edit">Edit</string>
+    <string name="write_your_text_here">Text</string>
+    <string name="SaveButton">SaveButton</string>
+    <string name="EditImage">EditImage</string>
+    <string name="EditTextTop">EditTextTop</string>
+    <string name="EditTextBottom">EditTextBottom</string>
+    <string name="CancelEditButton">CancelEditButton</string>
+    <string name="edit_text">Edit text</string>
 </resources>
