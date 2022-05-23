@@ -45,16 +45,16 @@
     <Button
         android:id="@+id/optionsButton"
         style="@style/Widget.App.Button.MyStyle"
-        android:paddingEnd="0dp"
-        android:paddingStart="0dp"
-        app:iconPadding="0dp"
-        app:rippleColor="@color/white"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:contentDescription="@string/options_button"
+        android:paddingStart="0dp"
+        android:paddingEnd="0dp"
         app:icon="@drawable/ic_options_24dp"
+        app:iconPadding="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:rippleColor="@color/white"
         tools:ignore="RtlSymmetry" />
 
     <androidx.constraintlayout.widget.Barrier
@@ -69,13 +69,13 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:autoLink="web"
-        android:lineSpacingMultiplier="1.5"
+        android:lineSpacingMultiplier="1"
         android:paddingTop="@dimen/common_spacing"
         android:paddingBottom="@dimen/common_spacing"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/headerBarrier"
-        tools:text="Это новая Нетология." />
+        tools:text="Это новая Нетология. Почему бы не написать прямо тут какой-нибудь текст." />
 
     <androidx.constraintlayout.widget.Barrier
         android:id="@+id/bottomBarrier"
@@ -105,29 +105,21 @@
         app:icon="@drawable/ic_share_24dp"
         app:layout_constraintStart_toEndOf="@id/likesImage"
         app:layout_constraintTop_toBottomOf="@id/bottomBarrier"
-        tools:text="100"
-        />
+        tools:text="100" />
 
-    <androidx.appcompat.widget.AppCompatImageView
+    <Button
         android:id="@+id/viewsImage"
-        android:contentDescription="@string/views_sign"
+        style="@style/Widget.App.Button.MyStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintEnd_toStartOf="@id/viewsAmount"
-        app:layout_constraintTop_toBottomOf="@id/bottomBarrier"
-        android:src="@drawable/ic_views_eye_24dp"/>
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:textSize="12sp"
-        android:id="@+id/viewsAmount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
+        android:contentDescription="@string/share_sign"
+        android:enabled="false"
+        android:paddingStart="0dp"
+        android:paddingEnd="0dp"
+        app:icon="@drawable/ic_views_eye_24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/bottomBarrier"
-        tools:text="1" />
+        tools:text="100" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

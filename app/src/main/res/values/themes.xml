@@ -32,8 +32,6 @@
         <item name="android:textColor">@color/like_checkbox_tint</item>
         <item name="android:insetTop">0dp</item>
         <item name="android:insetBottom">0dp</item>
-        <item name="android:paddingStart">8dp</item>
-        <item name="android:paddingEnd">12dp</item>
         <item name="android:minWidth">24dp</item>
         <item name="android:minHeight">24dp</item>
         <item name="rippleColor">@color/share_button_pressed</item>
