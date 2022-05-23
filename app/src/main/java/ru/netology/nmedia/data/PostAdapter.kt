@@ -34,17 +34,14 @@ class ViewHolder(
 
     fun bind(post: Post) {
         binding.apply {
-            likesAmount.text = countView(post.counterLike)
-            sharesAmount.text = countView(post.counterShare)
+            shareImage.text = countView(post.counterShare)
             viewsAmount.text = countView(post.counterView)
 
             usersName.text = post.author
             date.text = post.published
             mainText.text = post.content
-
-            likesImage.setImageResource(
-                if (post.likedByMe) R.drawable.ic_liked_24dp else R.drawable.ic_likes_24dp
-            )
+            likesImage.text = post.counterLike.toString()
+            likesImage.isChecked = post.likedByMe
 
             shareImage.setOnClickListener {
                 listener.onShareListener(post)

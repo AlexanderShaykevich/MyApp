@@ -8,13 +8,12 @@
 
     <ImageView
         android:id="@+id/avatar"
-        android:src="@mipmap/ic_launcher"
         android:layout_width="@dimen/post_avatar_size"
         android:layout_height="@dimen/post_avatar_size"
         android:contentDescription="@string/authorsAvatar"
+        android:src="@mipmap/ic_launcher"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-         />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/usersName"
@@ -43,15 +42,20 @@
         app:layout_constraintTop_toBottomOf="@id/usersName"
         tools:text="16 апреля 2022" />
 
-    <ImageButton
+    <Button
         android:id="@+id/optionsButton"
+        style="@style/Widget.App.Button.MyStyle"
+        android:paddingEnd="0dp"
+        android:paddingStart="0dp"
+        app:iconPadding="0dp"
+        app:rippleColor="@color/white"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@android:color/transparent"
         android:contentDescription="@string/options_button"
+        app:icon="@drawable/ic_options_24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_options_24dp" />
+        tools:ignore="RtlSymmetry" />
 
     <androidx.constraintlayout.widget.Barrier
         android:id="@+id/headerBarrier"
@@ -80,69 +84,50 @@
         app:barrierDirection="bottom"
         app:constraint_referenced_ids="mainText" />
 
-    <androidx.appcompat.widget.AppCompatImageView
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/likesImage"
+        style="@style/Widget.AppTheme.LiveCheckBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:checkable="true"
         android:contentDescription="@string/likes_sign"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_likes_24dp"
-        android:layout_marginTop="@dimen/common_spacing"
+        app:icon="@drawable/ic_like_24new"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/bottomBarrier"/>
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/likesAmount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toEndOf="@id/likesImage"
         app:layout_constraintTop_toBottomOf="@id/bottomBarrier"
-        android:layout_marginStart="@dimen/common_spacing"
-        android:layout_marginTop="@dimen/common_spacing"
         tools:text="100" />
 
-    <androidx.appcompat.widget.AppCompatImageView
+    <Button
         android:id="@+id/shareImage"
+        style="@style/Widget.App.Button.MyStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:contentDescription="@string/share_sign"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/common_spacing"
-        android:layout_marginStart="@dimen/common_spacing"
-        app:layout_constraintStart_toEndOf="@id/likesAmount"
+        app:icon="@drawable/ic_share_24dp"
+        app:layout_constraintStart_toEndOf="@id/likesImage"
         app:layout_constraintTop_toBottomOf="@id/bottomBarrier"
-        android:src="@drawable/ic_share_24dp"/>
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/sharesAmount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@android:color/transparent"
-        app:layout_constraintStart_toEndOf="@id/shareImage"
-        app:layout_constraintTop_toBottomOf="@id/bottomBarrier"
-        android:layout_marginStart="@dimen/common_spacing"
-        android:layout_marginTop="@dimen/common_spacing"
-        tools:text="5" />
+        tools:text="100"
+        />
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/viewsImage"
         android:contentDescription="@string/views_sign"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/common_spacing"
-        android:layout_marginEnd="@dimen/common_spacing"
-     app:layout_constraintEnd_toStartOf="@id/viewsAmount"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toStartOf="@id/viewsAmount"
         app:layout_constraintTop_toBottomOf="@id/bottomBarrier"
         android:src="@drawable/ic_views_eye_24dp"/>
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:text="500"
+        android:textSize="12sp"
         android:id="@+id/viewsAmount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/common_spacing"
-        android:layout_marginEnd="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/bottomBarrier"
-        tools:text="500" />
-
+        tools:text="1" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
