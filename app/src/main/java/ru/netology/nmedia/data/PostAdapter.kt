@@ -34,7 +34,7 @@ class ViewHolder(
 
     fun bind(post: Post) {
         binding.apply {
-            sharesAmount.text = countView(post.counterShare)
+            shareImage.text = countView(post.counterShare)
             viewsAmount.text = countView(post.counterView)
 
             usersName.text = post.author
