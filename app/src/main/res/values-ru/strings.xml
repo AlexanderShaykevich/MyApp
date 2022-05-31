@@ -16,4 +16,6 @@
     <string name="EditTextBottom">Редактируемый текст</string>
     <string name="CancelEditButton">Кнопка отмены редактирования</string>
     <string name="edit_text">Редактирование</string>
+    <string name="chooser_share_post">Поделиться постом</string>
+
 </resources>
