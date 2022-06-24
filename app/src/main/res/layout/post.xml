@@ -64,6 +64,19 @@
         app:barrierDirection="bottom"
         app:constraint_referenced_ids="avatar, date, optionsButton" />
 
+<!--    <androidx.appcompat.widget.AppCompatTextView-->
+<!--        android:id="@+id/mainText"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:autoLink="web"-->
+<!--        android:lineSpacingMultiplier="1"-->
+<!--        android:paddingTop="@dimen/common_spacing"-->
+<!--        android:paddingBottom="@dimen/common_spacing"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/headerBarrier"-->
+<!--        tools:text="Это новая Нетология. Почему бы не написать прямо тут какой-нибудь текст." />-->
+
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/mainText"
         android:layout_width="0dp"
@@ -75,7 +88,38 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/headerBarrier"
+        app:layout_constraintBottom_toTopOf="@id/videoPreview"
         tools:text="Это новая Нетология. Почему бы не написать прямо тут какой-нибудь текст." />
+
+    <View
+        android:id="@+id/videoPreview"
+        android:layout_width="0dp"
+        android:layout_height="200dp"
+        android:background="@android:color/holo_red_light"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/mainText"
+        app:layout_constraintBottom_toTopOf="@id/bottomBarrier"
+        tools:text="Это новая Нетология. Почему бы не написать прямо тут какой-нибудь текст." />
+
+    <View
+        android:id="@+id/videoButton"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:background="@android:drawable/btn_radio"
+        app:layout_constraintEnd_toEndOf="@id/videoPreview"
+        app:layout_constraintStart_toStartOf="@id/videoPreview"
+        app:layout_constraintTop_toTopOf="@id/videoPreview"
+        app:layout_constraintBottom_toBottomOf="@id/videoPreview"/>
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/videoGroup"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:constraint_referenced_ids="videoButton, videoPreview"
+        android:visibility="gone"
+        tools:visibility="visible"
+        />
 
     <androidx.constraintlayout.widget.Barrier
         android:id="@+id/bottomBarrier"
