@@ -3,6 +3,7 @@ package ru.netology.nmedia.data
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.PopupMenu
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -42,6 +43,7 @@ class ViewHolder(
             mainText.text = post.content
             likesImage.text = post.counterLike.toString()
             likesImage.isChecked = post.likedByMe
+            videoGroup.isVisible = post.video != null
 
             shareImage.setOnClickListener {
                 listener.onShareListener(post)
@@ -49,6 +51,10 @@ class ViewHolder(
 
             likesImage.setOnClickListener {
                 listener.onLikeListener(post)
+            }
+
+            videoPreview.setOnClickListener {
+                listener.onVideoPlayClickListener(post)
             }
 
             optionsButton.setOnClickListener {

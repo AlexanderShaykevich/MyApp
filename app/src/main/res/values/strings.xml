@@ -15,4 +15,6 @@
     <string name="EditTextBottom">EditTextBottom</string>
     <string name="CancelEditButton">CancelEditButton</string>
     <string name="edit_text">Edit text</string>
+    <string name="chooser_share_post">Share post</string>
+
 </resources>

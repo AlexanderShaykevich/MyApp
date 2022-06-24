@@ -1,15 +1,17 @@
 package ru.netology.nmedia
 
+import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
-import android.widget.Toast
+import androidx.activity.result.launch
 import androidx.activity.viewModels
+import ru.netology.nmedia.activity.PostContentActivity
+import ru.netology.nmedia.activity.PostContentActivity.*
 import ru.netology.nmedia.data.PostAdapter
 import ru.netology.nmedia.data.PostViewModel
 import ru.netology.nmedia.databinding.ActivityMainBinding
 
-import ru.netology.nmedia.util.hideKeyboard
 
 class MainActivity : AppCompatActivity(R.layout.post) {
 
@@ -25,41 +27,36 @@ class MainActivity : AppCompatActivity(R.layout.post) {
             adapter.submitList(posts)
         }
 
-        binding.saveButton.setOnClickListener {
-            with(binding.textWindow) {
-                if (text.isNullOrBlank()) {
-                    Toast.makeText(
-                        this@MainActivity,
-                        "Text can't be empty",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                    return@setOnClickListener
-                }
+        binding.fab.setOnClickListener {
+            viewModel.onAddListener()
+        }
 
-                val content = text.toString()
-                viewModel.onSaveButtonListener(content)
-                clearFocus()
-                hideKeyboard()
-                binding.editGroup.visibility = View.GONE
+        viewModel.sharePostContent.observe(this) { postContent ->
+            val intent = Intent().apply {
+                action = Intent.ACTION_SEND
+                putExtra(Intent.EXTRA_TEXT, postContent)
+                type = "text/plain"
+            }
+            val shareIntent = Intent.createChooser(intent, getString(R.string.chooser_share_post))
+            startActivity(shareIntent)
+        }
+
+        viewModel.playVideo.observe(this) { videoUrl ->
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(videoUrl))
+            if (intent.resolveActivity(packageManager) != null) {
+                startActivity(intent)
             }
         }
 
-        binding.editCancelButton.setOnClickListener {
-            viewModel.currentPost.value = null
-            binding.editGroup.visibility = View.GONE
-        }
+        val postContentActivityLauncher =
+            registerForActivityResult(ResultContract) { postContentAndVideo ->
+                postContentAndVideo ?: return@registerForActivityResult
+                viewModel.onSaveButtonListener(postContentAndVideo.newContent, postContentAndVideo.newVideoUrl)
 
-        viewModel.currentPost.observe(this) { currentPost ->
-            with(binding.textWindow) {
-                val content = currentPost?.content
-                setText(content)
-                if (content != null) {
-                    requestFocus()
-                    binding.editGroup.visibility = View.VISIBLE
-                    binding.editTextBottom.text = content
-                }
             }
 
+        viewModel.navigateToPostContentScreenEvent.observe(this) { postContentAndVideo ->
+            postContentActivityLauncher.launch(postContentAndVideo)
         }
 
     }
