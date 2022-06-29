@@ -1,12 +1,11 @@
-package ru.netology.nmedia
+package ru.netology.nmedia.activity
 
 import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.activity.result.launch
 import androidx.activity.viewModels
-import ru.netology.nmedia.activity.PostContentActivity
+import ru.netology.nmedia.R
 import ru.netology.nmedia.activity.PostContentActivity.*
 import ru.netology.nmedia.data.PostAdapter
 import ru.netology.nmedia.data.PostViewModel
