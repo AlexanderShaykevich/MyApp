@@ -1,15 +1,16 @@
 package ru.netology.nmedia.data
 
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import ru.netology.nmedia.Post
 import ru.netology.nmedia.activity.PostContentActivity.*
 import ru.netology.nmedia.util.SingleLiveEvent
 
-class PostViewModel : ViewModel(), PostInteractionListener {
-    private val repository: PostRepository = PostRepositoryInMemoryImpl()
+class PostViewModel(application: Application) : AndroidViewModel(application), PostInteractionListener {
+    private val repository: PostRepository = PostRepositoryFileImpl(application)
     val data = repository.get()
-    val currentPost = MutableLiveData<Post?>(null)
+    private val currentPost = MutableLiveData<Post?>(null)
     val sharePostContent = SingleLiveEvent<String>()
     val navigateToPostContentScreenEvent = SingleLiveEvent<EditPostResult?>()
     val playVideo = SingleLiveEvent<String>()
