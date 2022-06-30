@@ -1,24 +1,28 @@
 package ru.netology.nmedia.data
 
+import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import ru.netology.nmedia.Post
 
-class PostRepositoryInMemoryImpl : PostRepository {
+class PostRepositorySharedPrefsImpl(context: Context) : PostRepository {
 
-    private var nextId = GENERATED_POST_AMOUNT.toLong()
-
-    private var posts =
-        List(GENERATED_POST_AMOUNT) { index ->
-            Post(
-                id = index + 1L,
-                author = "Нетология. Университет интернет-профессий будущего",
-                content = "Привет! Это новая Нетология! Попытка номер $index",
-                published = "26 апреля 2022"
-            )
-        }
-
+    private val json = Gson()
+    private val prefs = context.getSharedPreferences("repo", Context.MODE_PRIVATE)
+    private val type = TypeToken.getParameterized(List::class.java, Post::class.java).type
+    private val key = "posts"
+    private var nextId = 1L
+    private var posts = emptyList<Post>()
     private val data = MutableLiveData(posts)
+
+    init {
+        prefs.getString(key, null)?.let {
+            posts = json.fromJson(it, type)
+            data.value = posts
+        }
+    }
 
     override fun get(): LiveData<List<Post>> = data
 
@@ -34,6 +38,7 @@ class PostRepositoryInMemoryImpl : PostRepository {
             }
         }
         data.value = posts
+        sync()
     }
 
     override fun share(id: Long) {
@@ -41,11 +46,13 @@ class PostRepositoryInMemoryImpl : PostRepository {
             if (it.id != id) it else it.copy(counterShare = it.counterShare + 1)
         }
         data.value = posts
+        sync()
     }
 
     override fun delete(id: Long) {
         posts = posts.filterNot { it.id == id }
         data.value = posts
+        sync()
     }
 
     override fun save(post: Post) {
@@ -55,12 +62,20 @@ class PostRepositoryInMemoryImpl : PostRepository {
     private fun insert(post: Post) {
         posts = listOf(post.copy(id = ++nextId)) + posts
         data.value = posts
+        sync()
     }
 
     private fun update(post: Post) {
         posts = posts.map { if (it.id == post.id) post else it }
         data.value = posts
+        sync()
+    }
 
+    private fun sync() {
+        with(prefs.edit()) {
+            putString(key, json.toJson(posts))
+            apply()
+        }
     }
 
     private companion object {
