@@ -12,7 +12,7 @@ class PostViewModel(application: Application) : AndroidViewModel(application), P
     val data = repository.get()
     private val currentPost = MutableLiveData<Post?>(null)
     val sharePostContent = SingleLiveEvent<String>()
-    val navigateToPostContentScreenEvent = SingleLiveEvent<EditPostResult?>()
+//    val navigateToPostContentScreenEvent = SingleLiveEvent<EditPostResult?>()
     val playVideo = SingleLiveEvent<String>()
 
     fun onSaveButtonListener(content: String, url: String?) {
@@ -38,19 +38,20 @@ class PostViewModel(application: Application) : AndroidViewModel(application), P
     }
 
     override fun onDeleteListener(post: Post) = repository.delete(post.id)
+
     override fun onEditListener(post: Post) {
         currentPost.value = post
-        navigateToPostContentScreenEvent.value = EditPostResult(post.content, post.video)
+//        navigateToPostContentScreenEvent.value = EditPostResult(post.content, post.video)
     }
 
     override fun onVideoPlayClickListener(post: Post) {
         val url = requireNotNull(post.video)
         playVideo.value = url
     }
-
-    fun onAddListener() {
-        navigateToPostContentScreenEvent.call()
-    }
+//
+//    fun onAddListener() {
+//        navigateToPostContentScreenEvent.call()
+//    }
 
 
 }

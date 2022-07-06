@@ -69,12 +69,12 @@ class FeedFragment: Fragment() {
         return binding.root
     }
 
-    companion object {
-private const val TEXT_KEY = "TEXT_KEY"
-        var Bundle.textArg: String?
-        set(value) = putString(TEXT_KEY, value)
-        get() = getString(TEXT_KEY)
-    }
+//    companion object {
+//private const val TEXT_KEY = "TEXT_KEY"
+//        var Bundle.textArg: String?
+//        set(value) = putString(TEXT_KEY, value)
+//        get() = getString(TEXT_KEY)
+//    }
 
 }
 
