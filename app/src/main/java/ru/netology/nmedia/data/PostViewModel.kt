@@ -4,7 +4,7 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import ru.netology.nmedia.Post
-import ru.netology.nmedia.activity.NewPostFragment.*
+import ru.netology.nmedia.activity.EditPostResult
 import ru.netology.nmedia.util.SingleLiveEvent
 
 class PostViewModel(application: Application) : AndroidViewModel(application), PostInteractionListener {
@@ -12,8 +12,9 @@ class PostViewModel(application: Application) : AndroidViewModel(application), P
     val data = repository.get()
     private val currentPost = MutableLiveData<Post?>(null)
     val sharePostContent = SingleLiveEvent<String>()
-//    val navigateToPostContentScreenEvent = SingleLiveEvent<EditPostResult?>()
+    val navigateToPostContentScreenEvent = SingleLiveEvent<EditPostResult>()
     val playVideo = SingleLiveEvent<String>()
+    val openPostEvent = SingleLiveEvent<Int>()
 
     fun onSaveButtonListener(content: String, url: String?) {
         val post = currentPost.value?.copy(
@@ -41,17 +42,17 @@ class PostViewModel(application: Application) : AndroidViewModel(application), P
 
     override fun onEditListener(post: Post) {
         currentPost.value = post
-//        navigateToPostContentScreenEvent.value = EditPostResult(post.content, post.video)
+        navigateToPostContentScreenEvent.value = EditPostResult(post.content, post.video)
     }
 
     override fun onVideoPlayClickListener(post: Post) {
         val url = requireNotNull(post.video)
         playVideo.value = url
     }
-//
-//    fun onAddListener() {
-//        navigateToPostContentScreenEvent.call()
-//    }
+
+    override fun onPostClickListener(post: Post) {
+
+    }
 
 
 }

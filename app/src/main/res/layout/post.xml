@@ -64,19 +64,6 @@
         app:barrierDirection="bottom"
         app:constraint_referenced_ids="avatar, date, optionsButton" />
 
-<!--    <androidx.appcompat.widget.AppCompatTextView-->
-<!--        android:id="@+id/mainText"-->
-<!--        android:layout_width="0dp"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:autoLink="web"-->
-<!--        android:lineSpacingMultiplier="1"-->
-<!--        android:paddingTop="@dimen/common_spacing"-->
-<!--        android:paddingBottom="@dimen/common_spacing"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@id/headerBarrier"-->
-<!--        tools:text="Это новая Нетология. Почему бы не написать прямо тут какой-нибудь текст." />-->
-
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/mainText"
         android:layout_width="0dp"
@@ -164,6 +151,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/bottomBarrier"
         tools:text="100" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/clickOnPostGroup"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:constraint_referenced_ids="mainText, date, avatar, usersName"
+        android:visibility="visible"
+        />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
