@@ -13,9 +13,10 @@ import ru.netology.nmedia.R
 import ru.netology.nmedia.data.PostAdapter
 import ru.netology.nmedia.data.PostViewModel
 import ru.netology.nmedia.databinding.FragmentFeedBinding
+import ru.netology.nmedia.util.EditArgs
 
 
-class FeedFragment: Fragment() {
+class FeedFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -45,36 +46,39 @@ class FeedFragment: Fragment() {
             startActivity(shareIntent)
         }
 
-//        viewModel.playVideo.observe(viewLifecycleOwner) { videoUrl ->
-//            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(videoUrl))
+        viewModel.playVideo.observe(viewLifecycleOwner) { videoUrl ->
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(videoUrl))
 //            if (intent.resolveActivity(packageManager) != null) {
-//                startActivity(intent)
+                startActivity(intent)
 //            }
-//        }
-//
-//        val postContentActivityLauncher =
-//            registerForActivityResult(ResultContract) { postContentAndVideo ->
-//                postContentAndVideo ?: return@registerForActivityResult
-//                viewModel.onSaveButtonListener(
-//                    postContentAndVideo.newContent,
-//                    postContentAndVideo.newVideoUrl
-//                )
-//            }
+        }
 
-//        viewModel.navigateToPostContentScreenEvent.observe(viewLifecycleOwner) { postContentAndVideo ->
-//            postContentActivityLauncher.launch(postContentAndVideo)
-//        }
+        viewModel.navigateToPostContentScreenEvent.observe(viewLifecycleOwner) { postContentAndVideo ->
+            findNavController().navigate(
+                R.id.action_feedFragment_to_newPostFragment,
+                Bundle().apply {
+                    EditArgs = EditPostResult(postContentAndVideo.content, postContentAndVideo?.video)
+
+                })
+        }
+
+        viewModel.openPostEvent.observe(viewLifecycleOwner) {
+            findNavController().navigate(
+                R.id.action_feedFragment_to_postFragment, Bundle().apply {
+                    putInt("id", it)
+                }
+            )
+        }
 
 
         return binding.root
     }
 
-//    companion object {
-//private const val TEXT_KEY = "TEXT_KEY"
-//        var Bundle.textArg: String?
-//        set(value) = putString(TEXT_KEY, value)
-//        get() = getString(TEXT_KEY)
-//    }
+        companion object {
+            var Bundle.EditArgs: EditPostResult by EditArgs
+        }
+
+
 
 }
 

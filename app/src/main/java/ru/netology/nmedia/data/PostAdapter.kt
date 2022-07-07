@@ -76,6 +76,10 @@ class ViewHolder(
                 }.show()
             }
 
+            clickOnPostGroup.setOnClickListener {
+                listener.onPostClickListener(post)
+            }
+
         }
     }
 }

@@ -1,6 +1,5 @@
 package ru.netology.nmedia.activity
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,9 +7,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import ru.netology.nmedia.activity.FeedFragment.Companion.EditArgs
 import ru.netology.nmedia.data.PostViewModel
 import ru.netology.nmedia.databinding.FragmentNewPostBinding
-import ru.netology.nmedia.util.Arg
+import ru.netology.nmedia.util.StringArg
+import java.io.Serializable
 
 
 class NewPostFragment: Fragment() {
@@ -22,8 +23,15 @@ class NewPostFragment: Fragment() {
     ): View {
         val binding = FragmentNewPostBinding.inflate(inflater, container, false)
         val viewModel by viewModels<PostViewModel>(ownerProducer = ::requireParentFragment)
-        arguments?.Arg.let(binding.edit::setText)
-        
+
+        arguments?.EditArgs.let {
+            if (it != null) {
+                binding.edit.setText(it.content)
+                binding.link.setText(it.video)
+            }
+
+        }
+
         binding.edit.requestFocus()
 
         binding.save.setOnClickListener {
@@ -49,10 +57,14 @@ class NewPostFragment: Fragment() {
     }
 
     companion object {
-        var Bundle.Arg: String? by Arg
+        var Bundle.StringArg: String? by StringArg
     }
 
 
-
 }
+
+class EditPostResult(
+    val content: String,
+    val video: String?
+): Serializable
 
