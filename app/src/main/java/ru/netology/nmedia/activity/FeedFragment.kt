@@ -27,6 +27,7 @@ class FeedFragment : Fragment() {
         val viewModel by viewModels<PostViewModel>(ownerProducer = ::requireParentFragment)
         val adapter = PostAdapter(viewModel)
         binding.list.adapter = adapter
+
         viewModel.data.observe(viewLifecycleOwner) { posts ->
             adapter.submitList(posts)
         }
@@ -49,7 +50,7 @@ class FeedFragment : Fragment() {
         viewModel.playVideo.observe(viewLifecycleOwner) { videoUrl ->
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse(videoUrl))
 //            if (intent.resolveActivity(packageManager) != null) {
-                startActivity(intent)
+            startActivity(intent)
 //            }
         }
 
@@ -57,15 +58,17 @@ class FeedFragment : Fragment() {
             findNavController().navigate(
                 R.id.action_feedFragment_to_newPostFragment,
                 Bundle().apply {
-                    EditArgs = EditPostResult(postContentAndVideo.content, postContentAndVideo?.video)
+                    EditArgs =
+                        EditPostResult(postContentAndVideo.content, postContentAndVideo?.video)
 
                 })
         }
 
         viewModel.openPostEvent.observe(viewLifecycleOwner) {
             findNavController().navigate(
-                R.id.action_feedFragment_to_postFragment, Bundle().apply {
-                    putInt("id", it)
+                R.id.action_feedFragment_to_postFragment,
+                Bundle().apply {
+                    putLong("id", it)
                 }
             )
         }
@@ -74,10 +77,9 @@ class FeedFragment : Fragment() {
         return binding.root
     }
 
-        companion object {
-            var Bundle.EditArgs: EditPostResult by EditArgs
-        }
-
+    companion object {
+        var Bundle.EditArgs: EditPostResult by EditArgs
+    }
 
 
 }

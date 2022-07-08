@@ -1,20 +1,22 @@
 package ru.netology.nmedia.data
 
 import android.app.Application
+import android.os.Bundle
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import ru.netology.nmedia.Post
 import ru.netology.nmedia.activity.EditPostResult
 import ru.netology.nmedia.util.SingleLiveEvent
 
-class PostViewModel(application: Application) : AndroidViewModel(application), PostInteractionListener {
+class PostViewModel(application: Application) : AndroidViewModel(application),
+    PostInteractionListener {
     private val repository: PostRepository = PostRepositoryFileImpl(application)
     val data = repository.get()
     private val currentPost = MutableLiveData<Post?>(null)
     val sharePostContent = SingleLiveEvent<String>()
     val navigateToPostContentScreenEvent = SingleLiveEvent<EditPostResult>()
     val playVideo = SingleLiveEvent<String>()
-    val openPostEvent = SingleLiveEvent<Int>()
+    val openPostEvent = SingleLiveEvent<Long>()
 
     fun onSaveButtonListener(content: String, url: String?) {
         val post = currentPost.value?.copy(
@@ -51,7 +53,7 @@ class PostViewModel(application: Application) : AndroidViewModel(application), P
     }
 
     override fun onPostClickListener(post: Post) {
-
+        openPostEvent.value = post.id
     }
 
 

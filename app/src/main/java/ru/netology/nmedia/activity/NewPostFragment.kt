@@ -24,12 +24,11 @@ class NewPostFragment: Fragment() {
         val binding = FragmentNewPostBinding.inflate(inflater, container, false)
         val viewModel by viewModels<PostViewModel>(ownerProducer = ::requireParentFragment)
 
-        arguments?.EditArgs.let {
-            if (it != null) {
+        arguments?.StringArg?.let(binding.edit::setText)
+
+        arguments?.EditArgs?.let {
                 binding.edit.setText(it.content)
                 binding.link.setText(it.video)
-            }
-
         }
 
         binding.edit.requestFocus()
