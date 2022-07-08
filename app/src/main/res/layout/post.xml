@@ -87,7 +87,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/mainText"
         app:layout_constraintBottom_toTopOf="@id/bottomBarrier"
-        tools:text="Это новая Нетология. Почему бы не написать прямо тут какой-нибудь текст." />
+        />
 
     <View
         android:id="@+id/videoButton"
@@ -151,14 +151,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/bottomBarrier"
         tools:text="100" />
-
-    <androidx.constraintlayout.widget.Group
-        android:id="@+id/clickOnPostGroup"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:constraint_referenced_ids="mainText, date, avatar, usersName"
-        android:visibility="visible"
-        />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
