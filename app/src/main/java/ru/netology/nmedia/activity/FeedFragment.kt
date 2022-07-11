@@ -11,11 +11,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import ru.netology.nmedia.R
+import ru.netology.nmedia.activity.AppActivity.Companion.PostArgs
 import ru.netology.nmedia.activity.PostFragment.Companion.KEY_ID
 import ru.netology.nmedia.data.PostAdapter
 import ru.netology.nmedia.data.PostViewModel
 import ru.netology.nmedia.databinding.FragmentFeedBinding
-import ru.netology.nmedia.util.EditArgs
 
 
 class FeedFragment : Fragment() {
@@ -62,8 +62,8 @@ class FeedFragment : Fragment() {
             findNavController().navigate(
                 R.id.action_feedFragment_to_newPostFragment,
                 Bundle().apply {
-                    EditPostArgs =
-                        EditPostResult(postContentAndVideo.content, postContentAndVideo?.video)
+                    PostArgs =
+                        EditPostResult(postContentAndVideo.content, postContentAndVideo.video)
 
                 })
         }
@@ -79,10 +79,6 @@ class FeedFragment : Fragment() {
 
 
         return binding.root
-    }
-
-    companion object {
-        var Bundle.EditPostArgs: EditPostResult by EditArgs
     }
 
 

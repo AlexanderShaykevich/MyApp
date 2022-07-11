@@ -5,8 +5,8 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
 import ru.netology.nmedia.R
-import ru.netology.nmedia.activity.NewPostFragment.Companion.textArg
 import ru.netology.nmedia.databinding.ActivityAppBinding
+import ru.netology.nmedia.util.EditArgs
 
 class AppActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,11 +24,14 @@ class AppActivity : AppCompatActivity() {
             fragment.navController.navigate(
                 R.id.action_feedFragment_to_newPostFragment,
                 Bundle().apply {
-                    textArg = text
+                    PostArgs = EditPostResult(text)
                 })
-
         }
 
+    }
 
+    companion object {
+        var Bundle.PostArgs: EditPostResult by EditArgs
     }
 }
+
