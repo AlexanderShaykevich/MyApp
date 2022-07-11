@@ -7,14 +7,14 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import ru.netology.nmedia.activity.FeedFragment.Companion.EditArgs
+import ru.netology.nmedia.activity.FeedFragment.Companion.EditPostArgs
 import ru.netology.nmedia.data.PostViewModel
 import ru.netology.nmedia.databinding.FragmentNewPostBinding
 import ru.netology.nmedia.util.StringArg
 import java.io.Serializable
 
 
-class NewPostFragment: Fragment() {
+class NewPostFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -24,11 +24,21 @@ class NewPostFragment: Fragment() {
         val binding = FragmentNewPostBinding.inflate(inflater, container, false)
         val viewModel by viewModels<PostViewModel>(ownerProducer = ::requireParentFragment)
 
-        arguments?.StringArg?.let(binding.edit::setText)
+//        arguments?.apply {
+//            StringArg?.let { binding.edit.setText(it) }
+//            EditArgs.let {
+//                binding.edit.setText(it.content)
+//                binding.link.setText(it.video)
+//            }
+//        }
 
-        arguments?.EditArgs?.let {
+        if (!arguments?.textArg.isNullOrBlank()) {
+            arguments?.textArg?.let(binding.edit::setText)
+        } else {
+            arguments?.EditPostArgs?.let {
                 binding.edit.setText(it.content)
                 binding.link.setText(it.video)
+            }
         }
 
         binding.edit.requestFocus()
@@ -38,7 +48,7 @@ class NewPostFragment: Fragment() {
                 val content = binding.edit.text.toString()
                 var url: String? = null
 
-                if(binding.link.text.isNotBlank()) {
+                if (binding.link.text.isNotBlank()) {
                     url = binding.link.text.toString()
                 }
                 viewModel.onSaveButtonListener(content, url)
@@ -47,7 +57,7 @@ class NewPostFragment: Fragment() {
 
         }
 
-        binding.cancel.setOnClickListener{
+        binding.cancel.setOnClickListener {
             findNavController().navigateUp()
         }
 
@@ -56,7 +66,7 @@ class NewPostFragment: Fragment() {
     }
 
     companion object {
-        var Bundle.StringArg: String? by StringArg
+        var Bundle.textArg: String? by StringArg
     }
 
 
@@ -65,5 +75,5 @@ class NewPostFragment: Fragment() {
 class EditPostResult(
     val content: String,
     val video: String?
-): Serializable
+) : Serializable
 

@@ -1,11 +1,8 @@
 package ru.netology.nmedia.data
 
-import android.app.Application
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.PopupMenu
-import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -47,7 +44,6 @@ class ViewHolder(
             likesImage.text = post.counterLike.toString()
             likesImage.isChecked = post.likedByMe
             videoGroup.isVisible = post.video != null
-            clickOnPostGroup.isClickable = true
 
             shareImage.setOnClickListener {
                 listener.onShareListener(post)

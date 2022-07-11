@@ -6,10 +6,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import ru.netology.nmedia.R
+import ru.netology.nmedia.activity.PostFragment.Companion.KEY_ID
 import ru.netology.nmedia.data.PostAdapter
 import ru.netology.nmedia.data.PostViewModel
 import ru.netology.nmedia.databinding.FragmentFeedBinding
@@ -48,9 +50,13 @@ class FeedFragment : Fragment() {
         }
 
         viewModel.playVideo.observe(viewLifecycleOwner) { videoUrl ->
-            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(videoUrl))
+            try {
+                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(videoUrl))
 //            if (intent.resolveActivity(packageManager) != null) {
-            startActivity(intent)
+                startActivity(intent)
+            } catch (ex: Exception) {
+                Toast.makeText(context, "Wrong video url", Toast.LENGTH_SHORT).show()
+            }
 //            }
         }
 
@@ -58,7 +64,7 @@ class FeedFragment : Fragment() {
             findNavController().navigate(
                 R.id.action_feedFragment_to_newPostFragment,
                 Bundle().apply {
-                    EditArgs =
+                    EditPostArgs =
                         EditPostResult(postContentAndVideo.content, postContentAndVideo?.video)
 
                 })
@@ -68,7 +74,7 @@ class FeedFragment : Fragment() {
             findNavController().navigate(
                 R.id.action_feedFragment_to_postFragment,
                 Bundle().apply {
-                    putLong("id", it)
+                    putLong(KEY_ID, it)
                 }
             )
         }
@@ -78,7 +84,7 @@ class FeedFragment : Fragment() {
     }
 
     companion object {
-        var Bundle.EditArgs: EditPostResult by EditArgs
+        var Bundle.EditPostArgs: EditPostResult by EditArgs
     }
 
 
