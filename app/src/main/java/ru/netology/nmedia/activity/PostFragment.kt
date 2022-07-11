@@ -10,9 +10,8 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import ru.netology.nmedia.Post
 import ru.netology.nmedia.R
-import ru.netology.nmedia.activity.FeedFragment.Companion.EditPostArgs
+import ru.netology.nmedia.activity.AppActivity.Companion.PostArgs
 import ru.netology.nmedia.data.PostViewModel
 import ru.netology.nmedia.data.ViewHolder
 import ru.netology.nmedia.databinding.FragmentPostBinding
@@ -50,24 +49,25 @@ class PostFragment : Fragment() {
         }
 
         viewModel.playVideo.observe(viewLifecycleOwner) { videoUrl ->
-            try {
-                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(videoUrl))
-//            if (intent.resolveActivity(packageManager) != null) {
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(videoUrl))
+            if (intent.resolveActivity(requireActivity().packageManager) != null) {
                 startActivity(intent)
-            } catch (ex: Exception) {
+            } else {
                 Toast.makeText(context, "Wrong video url", Toast.LENGTH_SHORT).show()
             }
-//            }
         }
+
 
         viewModel.navigateToPostContentScreenEvent.observe(viewLifecycleOwner) { postContentAndVideo ->
             findNavController().navigate(R.id.action_postFragment_to_newPostFragment,
                 Bundle().apply {
-                    EditPostArgs =
+                    PostArgs =
                         EditPostResult(postContentAndVideo.content, postContentAndVideo?.video)
 
                 })
         }
+
+        viewModel.openPostEvent.observe(viewLifecycleOwner) { }
 
         return binding.root
     }
