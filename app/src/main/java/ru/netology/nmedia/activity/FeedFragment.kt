@@ -50,14 +50,12 @@ class FeedFragment : Fragment() {
         }
 
         viewModel.playVideo.observe(viewLifecycleOwner) { videoUrl ->
-            try {
-                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(videoUrl))
-//            if (intent.resolveActivity(packageManager) != null) {
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(videoUrl))
+            if (intent.resolveActivity(requireActivity().packageManager) != null) {
                 startActivity(intent)
-            } catch (ex: Exception) {
+            } else {
                 Toast.makeText(context, "Wrong video url", Toast.LENGTH_SHORT).show()
             }
-//            }
         }
 
         viewModel.navigateToPostContentScreenEvent.observe(viewLifecycleOwner) { postContentAndVideo ->
