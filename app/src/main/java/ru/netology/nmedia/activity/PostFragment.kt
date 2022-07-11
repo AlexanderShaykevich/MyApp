@@ -7,24 +7,18 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.PopupMenu
-import androidx.core.view.isVisible
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import ru.netology.nmedia.Post
 import ru.netology.nmedia.R
-import ru.netology.nmedia.activity.FeedFragment.Companion.EditArgs
-import ru.netology.nmedia.countView
-import ru.netology.nmedia.data.PostAdapter
-import ru.netology.nmedia.data.PostRepositoryFileImpl
+import ru.netology.nmedia.activity.FeedFragment.Companion.EditPostArgs
 import ru.netology.nmedia.data.PostViewModel
 import ru.netology.nmedia.data.ViewHolder
 import ru.netology.nmedia.databinding.FragmentPostBinding
-import ru.netology.nmedia.util.SingleLiveEvent
 
 
 class PostFragment : Fragment() {
-    private lateinit var post: Post
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,16 +28,14 @@ class PostFragment : Fragment() {
         val viewModel by viewModels<PostViewModel>(ownerProducer = ::requireParentFragment)
 
         val viewHolder = ViewHolder(binding.post, viewModel)
-        val id = arguments?.getLong("id")
+        val id = arguments?.getLong(KEY_ID)
 
-        viewModel.data.observe(viewLifecycleOwner) { postsList ->
-            val filteredPosts = postsList.filter { it.id == id }
-            if (filteredPosts.isNotEmpty()) {
-                val post = filteredPosts[0]
-                viewHolder.bind(post)
-            } else {
-                findNavController().navigateUp()
+        viewModel.data.observe(viewLifecycleOwner) { posts ->
+            posts.firstOrNull { it.id == id }?.let {
+                viewHolder.bind(it)
+                return@observe
             }
+            findNavController().navigateUp()
         }
 
         viewModel.sharePostContent.observe(viewLifecycleOwner) { postContent ->
@@ -58,29 +50,35 @@ class PostFragment : Fragment() {
         }
 
         viewModel.playVideo.observe(viewLifecycleOwner) { videoUrl ->
-            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(videoUrl))
+            try {
+                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(videoUrl))
 //            if (intent.resolveActivity(packageManager) != null) {
-            startActivity(intent)
+                startActivity(intent)
+            } catch (ex: Exception) {
+                Toast.makeText(context, "Wrong video url", Toast.LENGTH_SHORT).show()
+            }
 //            }
         }
 
         viewModel.navigateToPostContentScreenEvent.observe(viewLifecycleOwner) { postContentAndVideo ->
             findNavController().navigate(R.id.action_postFragment_to_newPostFragment,
                 Bundle().apply {
-                    EditArgs =
+                    EditPostArgs =
                         EditPostResult(postContentAndVideo.content, postContentAndVideo?.video)
 
                 })
         }
 
-
-
-
         return binding.root
     }
 
-
-
+    companion object {
+        const val KEY_ID = "id"
+    }
 
 }
+
+
+
+
 
