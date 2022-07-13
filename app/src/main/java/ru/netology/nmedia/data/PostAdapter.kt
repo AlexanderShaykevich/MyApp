@@ -76,6 +76,10 @@ class ViewHolder(
                 }.show()
             }
 
+            binding.root.setOnClickListener {
+                listener.onPostClickListener(post)
+            }
+
         }
     }
 }
