@@ -6,7 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import ru.netology.nmedia.Post
+import ru.netology.nmedia.dto.Post
 
 class PostRepositoryFileImpl(private val context: Context) : PostRepository {
     private val gson = Gson()
@@ -75,7 +75,6 @@ class PostRepositoryFileImpl(private val context: Context) : PostRepository {
     override fun delete(id: Long) {
         posts = posts.filterNot { it.id == id }
         data.value = posts
-        sync()
     }
 
     override fun save(post: Post) {

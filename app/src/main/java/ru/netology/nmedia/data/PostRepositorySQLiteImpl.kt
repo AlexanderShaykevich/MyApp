@@ -3,31 +3,29 @@ package ru.netology.nmedia.data
 import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
+import ru.netology.nmedia.dao.PostDao
 import ru.netology.nmedia.dto.Post
 
-class PostRepositorySharedPrefsImpl(context: Context) : PostRepository {
-
-    private val json = Gson()
-    private val prefs = context.getSharedPreferences("repo", Context.MODE_PRIVATE)
-    private val type = TypeToken.getParameterized(List::class.java, Post::class.java).type
-    private val key = "posts"
-    private var nextId = 1L
+class PostRepositorySQLiteImpl(
+    private val context: Context,
+    private val dao: PostDao
+    ) : PostRepository {
+    private var nextId = 0L
     private var posts = emptyList<Post>()
     private val data = MutableLiveData(posts)
+    private val idPref = context.getSharedPreferences("id", Context.MODE_PRIVATE)
+    private val key = "id_key"
 
     init {
-        prefs.getString(key, null)?.let {
-            posts = json.fromJson(it, type)
-            data.value = posts
-        }
+        nextId = idPref.getLong(key, 0)
+        posts = dao.get()
+        data.value = posts
     }
 
     override fun get(): LiveData<List<Post>> = data
 
     override fun like(id: Long) {
-
+        dao.like(id)
         posts = posts.map {
             if (it.id != id) {
                 it
@@ -38,21 +36,20 @@ class PostRepositorySharedPrefsImpl(context: Context) : PostRepository {
             }
         }
         data.value = posts
-        sync()
     }
 
     override fun share(id: Long) {
+        dao.share(id)
         posts = posts.map {
             if (it.id != id) it else it.copy(counterShare = it.counterShare + 1)
         }
         data.value = posts
-        sync()
     }
 
     override fun delete(id: Long) {
+        dao.delete(id)
         posts = posts.filterNot { it.id == id }
         data.value = posts
-        sync()
     }
 
     override fun save(post: Post) {
@@ -60,26 +57,24 @@ class PostRepositorySharedPrefsImpl(context: Context) : PostRepository {
     }
 
     private fun insert(post: Post) {
-        posts = listOf(post.copy(id = ++nextId)) + posts
+        val saved = dao.save(post)
+        posts = listOf(saved.copy(id = ++nextId)) + posts
         data.value = posts
-        sync()
+        saveId()
     }
 
     private fun update(post: Post) {
+        dao.save(post)
         posts = posts.map { if (it.id == post.id) post else it }
         data.value = posts
-        sync()
     }
 
-    private fun sync() {
-        with(prefs.edit()) {
-            putString(key, json.toJson(posts))
+    private fun saveId() {
+        idPref.edit().apply {
+            putLong(key, nextId)
             apply()
         }
     }
 
-    private companion object {
-        const val GENERATED_POST_AMOUNT = 1000
-    }
 
 }
