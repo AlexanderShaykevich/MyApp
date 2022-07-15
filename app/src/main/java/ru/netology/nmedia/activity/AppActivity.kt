@@ -1,14 +1,19 @@
 package ru.netology.nmedia.activity
 
+import android.app.AlertDialog
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
 import ru.netology.nmedia.R
 import ru.netology.nmedia.databinding.ActivityAppBinding
+import ru.netology.nmedia.databinding.FragmentPostBinding
 import ru.netology.nmedia.util.EditArgs
 
 class AppActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding = ActivityAppBinding.inflate(layoutInflater)
