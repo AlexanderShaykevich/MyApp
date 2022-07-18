@@ -10,6 +10,4 @@ data class Post(
     val counterView: Int = 1,
     val likedByMe: Boolean = false,
     val video: String? = null,
-) {
-
-}
+)
