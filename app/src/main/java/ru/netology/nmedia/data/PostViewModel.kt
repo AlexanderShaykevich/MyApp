@@ -10,7 +10,7 @@ import ru.netology.nmedia.util.SingleLiveEvent
 
 class PostViewModel(application: Application) : AndroidViewModel(application),
     PostInteractionListener {
-    private val repository: PostRepository = PostRepositorySQLiteImpl(
+    private val repository: PostRepository = PostRepositoryRoomImpl(
         application,
         AppDb.getInstance(application).postDao
     )
