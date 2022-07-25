@@ -47,4 +47,3 @@ captures/
 
 ### Gradle ###
 !gradle/wrapper/gradle-wrapper.jar
-google-services.json
