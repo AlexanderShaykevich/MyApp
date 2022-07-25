@@ -17,5 +17,9 @@
     <string name="CancelEditButton">Кнопка отмены редактирования</string>
     <string name="edit_text">Редактирование</string>
     <string name="chooser_share_post">Поделиться постом</string>
+    <string name="notification_user_liked">%1$s поставил лайк посту %2$s</string>
+    <string name="notification_new_post">Пользователь %1$s опубликовал новый пост</string>
+    <string name="channel_remote_name">Уведомления с сервера</string>
+    <string name="channel_remote_description">Уведомления с удалённого сервера</string>
 
 </resources>
